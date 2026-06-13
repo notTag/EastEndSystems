@@ -21,8 +21,14 @@ function htmlVersionPlugin() {
   }
 }
 
+// Base path for asset URLs.
+// - GitHub Pages project site → '/EastEndSystems/' (default).
+// - Custom domain (eastendsystems.com, served at root) → set VITE_BASE='/'.
+const base = process.env.VITE_BASE || '/EastEndSystems/'
+
 // https://vite.dev/config/
 export default defineConfig({
+  base,
   define: {
     __APP_VERSION__: JSON.stringify(pkg.version),
   },

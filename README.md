@@ -56,15 +56,15 @@ it renders a `mailto:` button instead.
 ## Deployment — GitHub Pages
 
 `.github/workflows/deploy.yml` builds with Bun and publishes `dist/` to GitHub
-Pages on every push to `main`.
+Pages on every push to `main`. Live at:
 
-**One-time setup (see SETUP.md for full steps):**
+> **https://nottag.github.io/EastEndSystems/**
 
-- Repo **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-- The custom domain `eastendsystems.com` is set via `public/CNAME`. Point DNS
-  at GitHub Pages to activate it (DNS records listed in `SETUP.md`).
-- No custom domain? Delete `public/CNAME` and set
-  `base: '/EastEndSystems/'` in `vite.config.ts`.
+Vite `base` defaults to `/EastEndSystems/` (the project-page path). To serve from
+a custom domain at root, set `VITE_BASE=/`.
+
+See **[SETUP.md](./SETUP.md)** for the full go-live checklist — enabling Pages,
+the `eastendsystems.com` custom domain + DNS, and the Formspree contact form.
 
 ## License
 
