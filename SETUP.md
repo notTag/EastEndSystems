@@ -64,8 +64,8 @@ The form falls back to a `mailto:` button until you connect Formspree:
 3. Edit `src/views/HomeView.vue`: `const FORMSPREE_ID = 'xyzabcd'`.
 4. Commit + push. Submissions arrive in your Formspree inbox / forwarded email.
 
-> Also update the fallback `mailto:hello@eastendsystems.com` in the same file if
-> you want a different address.
+> The fallback button links to `mailto:info@eastendsystems.com`. Forms submitted
+> via Formspree can also be forwarded to that address from the Formspree dashboard.
 
 ## 5. Footer / project links (optional polish)
 

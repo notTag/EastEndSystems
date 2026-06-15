@@ -300,10 +300,10 @@ const projects = [
           <!-- Fallback until a Formspree ID is configured. -->
           <div v-else class="pt-2">
             <a
-              href="mailto:hello@eastendsystems.com"
+              href="mailto:info@eastendsystems.com"
               class="inline-block border border-muted-teal px-8 py-4 font-label-caps text-label-caps uppercase text-on-surface transition-all duration-150 hover:bg-muted-teal hover:text-white"
             >
-              hello@eastendsystems.com
+              info@eastendsystems.com
             </a>
           </div>
         </div>
