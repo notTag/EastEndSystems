@@ -2,9 +2,10 @@
 // East End Systems — single-page marketing site.
 // Design ported from the Stitch "East End Technical" design system.
 
-// Replace with your Formspree form ID (see README → Contact form).
-// Falls back to a mailto link if the placeholder is left in place.
-const FORMSPREE_ID = 'meewndwd'
+// Formspree form ID (see README → Contact form). Set back to 'your-form-id' to
+// fall back to a plain mailto link instead of the live form.
+// Typed as string so the placeholder comparison below stays valid.
+const FORMSPREE_ID: string = 'meewndwd'
 const formAction = `https://formspree.io/f/${FORMSPREE_ID}`
 const usesFormspree = FORMSPREE_ID !== 'your-form-id'
 
