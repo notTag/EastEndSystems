@@ -29,7 +29,8 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Build
-        run: bun run build
+        # Custom domain (eastendsystems.com) serves from root.
+        run: VITE_BASE=/ bun run build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
