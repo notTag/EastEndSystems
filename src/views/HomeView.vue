@@ -36,6 +36,7 @@ async function onSubmit(event: Event) {
       const data = await res.json().catch(() => null)
       errorMsg.value =
         data?.errors?.map((e: { message: string }) => e.message).join(', ') ||
+        data?.error ||
         'Something went wrong. Please email info@eastendsystems.com.'
       status.value = 'error'
     }
@@ -147,17 +148,7 @@ const projects = [
       <!-- Interactive ASCII fluid overlay (vue-ascii-overlay). Fills the hero;
            content sits above it via z-10. -->
       <div class="absolute inset-0 z-0">
-        <AsciiOverlay
-          color="#4a7075"
-          :font-size="16"
-          :fps="30"
-          :fluid="{
-            hoverRadiusPx: 85,
-            forceScale: 60,
-            velocityDissipation: 0.96,
-            densityDissipation: 0.95,
-          }"
-        />
+        <AsciiOverlay color="#4a7075" />
       </div>
       <div
         class="pointer-events-none relative z-10 mx-auto grid w-full max-w-[1200px] grid-cols-1 items-center gap-8 px-margin-mobile md:px-gutter lg:grid-cols-12"
@@ -304,6 +295,16 @@ const projects = [
             method="POST"
             @submit.prevent="onSubmit"
           >
+            <!-- Honeypot: bots fill this; Formspree silently drops those. Hidden
+                 from humans and screen readers. Replaces reCAPTCHA spam defence. -->
+            <input
+              type="text"
+              name="_gotcha"
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+              class="hidden"
+            />
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div>
                 <label class="mb-2 block font-label-caps text-label-caps text-on-surface-variant" for="name"
