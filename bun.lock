@@ -7,6 +7,7 @@
       "dependencies": {
         "pinia": "^3.0.0",
         "vue": "^3.5.13",
+        "vue-ascii-overlay": "^0.1.1",
         "vue-router": "^4.5.0",
       },
       "devDependencies": {
@@ -893,6 +894,8 @@
     "vscode-uri": ["vscode-uri@3.1.0", "", {}, "sha512-/BpdSx+yCQGnCvecbyXdxHDkuk55/G3xwnC0GqY4gmQ3j+A+g8kzzgB4Nk/SINjqn6+waqw3EgbVF2QKExkRxQ=="],
 
     "vue": ["vue@3.5.38", "", { "dependencies": { "@vue/compiler-dom": "3.5.38", "@vue/compiler-sfc": "3.5.38", "@vue/runtime-dom": "3.5.38", "@vue/server-renderer": "3.5.38", "@vue/shared": "3.5.38" }, "peerDependencies": { "typescript": "*" }, "optionalPeers": ["typescript"] }, "sha512-vAMKHfImQlYSy0C+PBue4s3ERZ2xGKfgZg5GXAsLInq1dyh2H78ILVP5sK0KPFPVW4kv+OGCIvBEondcjpZp7A=="],
+
+    "vue-ascii-overlay": ["vue-ascii-overlay@0.1.1", "", { "peerDependencies": { "vue": "^3.3.0" } }, "sha512-cJYnzN/dWMqNu7TxgChqMN9ZKo+yRoV33tY4cjLEe2WxGhtpAODlaxS79NeOLRFM1tM5RhCcH5tLfpMdhjFa6Q=="],
 
     "vue-component-type-helpers": ["vue-component-type-helpers@3.3.4", "", {}, "sha512-joip1uZTaQR0nD23N400gIdJ7xY+WiiiMA/BCKz842gvGBknqDQAzklUvDEhqFvvrhQY8S2ZANBMu4X70VMFGw=="],
 

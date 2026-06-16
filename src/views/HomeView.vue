@@ -2,12 +2,48 @@
 // East End Systems — single-page marketing site.
 // Design ported from the Stitch "East End Technical" design system.
 
+import { ref } from 'vue'
+import { AsciiOverlay } from 'vue-ascii-overlay'
+
 // Formspree form ID (see README → Contact form). Set back to 'your-form-id' to
 // fall back to a plain mailto link instead of the live form.
 // Typed as string so the placeholder comparison below stays valid.
 const FORMSPREE_ID: string = 'meewndwd'
 const formAction = `https://formspree.io/f/${FORMSPREE_ID}`
 const usesFormspree = FORMSPREE_ID !== 'your-form-id'
+
+// Submit via AJAX (Accept: application/json) so Formspree returns JSON instead
+// of redirecting to its hosted /thanks page (customising that redirect is a paid
+// feature). We render our own thank-you state in place — no redirect, no cost.
+type SubmitStatus = 'idle' | 'submitting' | 'success' | 'error'
+const status = ref<SubmitStatus>('idle')
+const errorMsg = ref('')
+
+async function onSubmit(event: Event) {
+  const form = event.target as HTMLFormElement
+  status.value = 'submitting'
+  errorMsg.value = ''
+  try {
+    const res = await fetch(formAction, {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+      body: new FormData(form),
+    })
+    if (res.ok) {
+      status.value = 'success'
+      form.reset()
+    } else {
+      const data = await res.json().catch(() => null)
+      errorMsg.value =
+        data?.errors?.map((e: { message: string }) => e.message).join(', ') ||
+        'Something went wrong. Please email info@eastendsystems.com.'
+      status.value = 'error'
+    }
+  } catch {
+    errorMsg.value = 'Network error. Please email info@eastendsystems.com directly.'
+    status.value = 'error'
+  }
+}
 
 const services = [
   {
@@ -108,8 +144,23 @@ const projects = [
     >
       <div class="technical-grid absolute inset-0 opacity-20"></div>
       <div class="wave-pattern absolute inset-0 opacity-50"></div>
+      <!-- Interactive ASCII fluid overlay (vue-ascii-overlay). Fills the hero;
+           content sits above it via z-10. -->
+      <div class="absolute inset-0 z-0">
+        <AsciiOverlay
+          color="#4a7075"
+          :font-size="16"
+          :fps="30"
+          :fluid="{
+            hoverRadiusPx: 85,
+            forceScale: 60,
+            velocityDissipation: 0.96,
+            densityDissipation: 0.95,
+          }"
+        />
+      </div>
       <div
-        class="relative z-10 mx-auto grid w-full max-w-[1200px] grid-cols-1 items-center gap-8 px-margin-mobile md:px-gutter lg:grid-cols-12"
+        class="pointer-events-none relative z-10 mx-auto grid w-full max-w-[1200px] grid-cols-1 items-center gap-8 px-margin-mobile md:px-gutter lg:grid-cols-12"
       >
         <div class="flex flex-col items-start lg:col-span-8">
           <p class="mb-4 font-mono-technical text-mono-technical uppercase tracking-widest text-muted-teal">
@@ -124,7 +175,7 @@ const projects = [
             Software engineering consultancy specializing in enterprise architecture, developer
             tooling, and AI-integrated systems.
           </p>
-          <div class="flex flex-col gap-4 sm:flex-row">
+          <div class="pointer-events-auto flex flex-col gap-4 sm:flex-row">
             <a
               class="inline-block border border-muted-teal px-8 py-4 text-center font-label-caps text-label-caps uppercase text-on-surface transition-all duration-150 hover:bg-muted-teal hover:text-white"
               href="#contact"
@@ -246,7 +297,13 @@ const projects = [
             Harbor, New York. Remote-friendly globally.
           </p>
 
-          <form v-if="usesFormspree" class="space-y-6" :action="formAction" method="POST">
+          <form
+            v-if="usesFormspree && status !== 'success'"
+            class="space-y-6"
+            :action="formAction"
+            method="POST"
+            @submit.prevent="onSubmit"
+          >
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div>
                 <label class="mb-2 block font-label-caps text-label-caps text-on-surface-variant" for="name"
@@ -288,15 +345,46 @@ const projects = [
                 class="w-full resize-none border-0 border-b border-slate-gray bg-transparent px-0 py-2 font-mono-technical text-on-surface transition-colors placeholder:text-slate-600 focus:border-muted-teal focus:ring-0"
               ></textarea>
             </div>
+            <p
+              v-if="status === 'error'"
+              class="font-mono-technical text-mono-technical text-error"
+            >
+              {{ errorMsg }}
+            </p>
             <div class="pt-4">
               <button
                 type="submit"
-                class="w-full border border-muted-teal px-8 py-4 font-label-caps text-label-caps uppercase text-on-surface transition-all duration-150 hover:bg-muted-teal hover:text-white md:w-auto"
+                :disabled="status === 'submitting'"
+                class="w-full border border-muted-teal px-8 py-4 font-label-caps text-label-caps uppercase text-on-surface transition-all duration-150 hover:bg-muted-teal hover:text-white disabled:cursor-not-allowed disabled:opacity-50 md:w-auto"
               >
-                Send Transmission
+                {{ status === 'submitting' ? 'Sending…' : 'Send Transmission' }}
               </button>
             </div>
           </form>
+
+          <!-- Our own thank-you state — replaces Formspree's hosted redirect. -->
+          <div
+            v-else-if="usesFormspree && status === 'success'"
+            class="border border-muted-teal bg-muted-teal/5 p-8"
+          >
+            <p
+              class="mb-3 font-mono-technical text-mono-technical uppercase tracking-widest text-muted-teal"
+            >
+              Transmission received
+            </p>
+            <h3 class="mb-4 font-headline-lg text-2xl font-medium text-on-surface">Thank you.</h3>
+            <p class="mb-6 font-body-md text-body-md text-on-surface-variant">
+              Your inquiry reached East End Systems. We’ll respond from
+              <span class="text-on-surface">info@eastendsystems.com</span> shortly.
+            </p>
+            <button
+              type="button"
+              class="font-label-caps text-label-caps uppercase text-muted-teal transition-colors hover:text-on-surface"
+              @click="status = 'idle'"
+            >
+              Send another →
+            </button>
+          </div>
 
           <!-- Fallback until a Formspree ID is configured. -->
           <div v-else class="pt-2">
