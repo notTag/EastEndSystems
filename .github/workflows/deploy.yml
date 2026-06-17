@@ -28,6 +28,15 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
+      - name: Lint
+        run: bun run lint
+
+      - name: Type check
+        run: bun run typecheck
+
+      - name: Test
+        run: bun run test
+
       - name: Build
         # Custom domain (eastendsystems.com) serves from root.
         run: VITE_BASE=/ bun run build
