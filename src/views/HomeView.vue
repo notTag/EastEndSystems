@@ -75,7 +75,7 @@ const projects = [
     title: 'SpaceTag',
     body: 'macOS productivity suite. Swift menu bar app + open-source CLI. Surfaces LLM completion notifications (Claude Code, Codex) via color-coded per-space indicators.',
     tags: ['Swift', 'macOS', 'CLI'],
-    href: 'https://spacetag.com',
+    href: 'https://github.com/notTag/Space-Tag-CLI',
   },
   {
     category: 'Framework',
@@ -89,14 +89,14 @@ const projects = [
     title: 'Vector Recommendation Engine',
     body: 'pgVector + Postgres + Nomic embeddings recommendation system seeded from structured public API data. Currently in active development.',
     tags: ['Postgres', 'pgVector', 'ML'],
-    href: '',
+    href: 'https://github.com/notTag/MTGRecSystem',
   },
   {
     category: 'Design System',
     title: 'Shared Design System',
     body: 'CSS-based theming system consumed across multiple production projects. Enforces strict visual hierarchy and token management. Open source.',
     tags: ['CSS', 'Architecture', 'Open Source'],
-    href: '',
+    href: 'https://github.com/notTag/DesignSystem',
   },
 ]
 </script>
@@ -229,9 +229,14 @@ const projects = [
           </p>
         </div>
         <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-          <div
+          <component
+            :is="project.href ? 'a' : 'div'"
             v-for="project in projects"
             :key="project.title"
+            :href="project.href || undefined"
+            :target="project.href ? '_blank' : undefined"
+            :rel="project.href ? 'noopener' : undefined"
+            :aria-label="project.href ? `Open ${project.title} on GitHub` : undefined"
             class="group relative flex h-full flex-col border border-slate-gray bg-[#151515] p-8 transition-colors duration-150 hover:border-muted-teal"
           >
             <div class="mb-6 flex items-start justify-between">
@@ -239,18 +244,14 @@ const projects = [
                 class="border border-muted-teal/30 bg-muted-teal/5 px-2 py-1 font-label-caps text-label-caps uppercase tracking-widest text-muted-teal"
                 >{{ project.category }}</span
               >
-              <a
+              <span
                 v-if="project.href"
-                :href="project.href"
-                target="_blank"
-                rel="noopener"
                 class="text-on-surface-variant transition-colors group-hover:text-primary"
-                :aria-label="`Open ${project.title}`"
               >
                 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0"
                   >arrow_outward</span
                 >
-              </a>
+              </span>
             </div>
             <h3 class="mb-3 font-headline-lg text-2xl font-medium text-on-surface">
               {{ project.title }}
@@ -266,7 +267,14 @@ const projects = [
                 >{{ tag }}</span
               >
             </div>
-          </div>
+            <a
+              v-if="!project.href"
+              href="#contact"
+              class="mt-6 inline-block self-start border border-muted-teal px-6 py-3 font-label-caps text-label-caps uppercase text-on-surface transition-all duration-150 hover:bg-muted-teal hover:text-white"
+            >
+              Request Details →
+            </a>
+          </component>
         </div>
       </div>
     </section>
@@ -412,7 +420,7 @@ const projects = [
     <div class="flex gap-6 font-body-sm text-body-sm">
       <a
         class="text-on-surface-variant transition-colors duration-150 hover:text-muted-teal"
-        href="https://github.com"
+        href="https://github.com/notTag"
         target="_blank"
         rel="noopener"
         >Github</a
