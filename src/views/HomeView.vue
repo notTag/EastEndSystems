@@ -195,11 +195,11 @@ const projects = [
             </p>
           </div>
         </div>
-        <div class="grid grid-cols-1 gap-px border border-slate-gray bg-slate-gray md:grid-cols-2">
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
           <div
             v-for="service in services"
             :key="service.title"
-            class="group bg-surface-dim p-8 transition-colors duration-300 hover:bg-[#151515] md:p-12"
+            class="group relative flex h-full flex-col border border-slate-gray bg-[#151515] p-8 transition-colors duration-150 hover:border-muted-teal"
           >
             <span
               class="material-symbols-outlined mb-6 text-3xl text-muted-teal"
