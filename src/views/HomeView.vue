@@ -79,10 +79,10 @@ const projects = [
   },
   {
     category: 'Framework',
-    title: 'Golden Tests',
+    title: 'Golden Lock',
     body: 'Immutable testing framework preventing AI agents from gaming test suites during automated development workflows. Enforces structural integrity.',
     tags: ['Testing', 'DevTools'],
-    href: '',
+    href: 'https://www.goldenlock.dev/',
   },
   {
     category: 'Data Infrastructure',
@@ -103,37 +103,39 @@ const projects = [
 
 <template>
   <!-- Navigation -->
-  <nav class="fixed top-0 z-50 w-full border-b border-slate-gray bg-background">
+  <nav class="border-slate-gray bg-background fixed top-0 z-50 w-full border-b">
     <div
-      class="mx-auto flex h-20 w-full max-w-[1200px] items-center justify-between px-margin-mobile md:px-gutter"
+      class="px-margin-mobile md:px-gutter mx-auto flex h-20 w-full max-w-[1200px] items-center justify-between"
     >
-      <a class="font-headline-lg text-headline-lg tracking-tighter text-on-surface" href="#">
+      <a class="font-headline-lg text-headline-lg text-on-surface tracking-tighter" href="#">
         East End Systems
       </a>
-      <div class="hidden items-center gap-8 font-label-caps text-label-caps md:flex">
+      <div class="font-label-caps text-label-caps hidden items-center gap-8 md:flex">
         <a
-          class="cursor-pointer text-on-surface-variant transition-colors duration-150 hover:text-primary"
+          class="text-on-surface-variant hover:text-primary cursor-pointer transition-colors duration-150"
           href="#services"
           >Services</a
         >
         <a
-          class="cursor-pointer text-on-surface-variant transition-colors duration-150 hover:text-primary"
+          class="text-on-surface-variant hover:text-primary cursor-pointer transition-colors duration-150"
           href="#projects"
           >Projects</a
         >
         <a
-          class="cursor-pointer text-on-surface-variant transition-colors duration-150 hover:text-primary"
+          class="text-on-surface-variant hover:text-primary cursor-pointer transition-colors duration-150"
           href="#contact"
           >Contact</a
         >
         <a
-          class="border border-muted-teal px-6 py-3 text-xs font-semibold uppercase tracking-widest text-on-surface transition-colors duration-150 hover:bg-muted-teal/10"
+          class="border-muted-teal text-on-surface hover:bg-muted-teal/10 border px-6 py-3 text-xs font-semibold tracking-widest uppercase transition-colors duration-150"
           href="#contact"
           >Get in Touch</a
         >
       </div>
       <a class="text-on-surface md:hidden" href="#contact" aria-label="Contact">
-        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0">mail</span>
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0"
+          >mail</span
+        >
       </a>
     </div>
   </nav>
@@ -141,7 +143,7 @@ const projects = [
   <main class="pt-20">
     <!-- Hero -->
     <section
-      class="relative flex min-h-[90vh] items-center justify-center overflow-hidden border-b border-slate-gray"
+      class="border-slate-gray relative flex min-h-[90vh] items-center justify-center overflow-hidden border-b"
     >
       <div class="technical-grid absolute inset-0 opacity-20"></div>
       <div class="wave-pattern absolute inset-0 opacity-50"></div>
@@ -151,29 +153,33 @@ const projects = [
         <AsciiOverlay color="#4a7075" />
       </div>
       <div
-        class="pointer-events-none relative z-10 mx-auto grid w-full max-w-[1200px] grid-cols-1 items-center gap-8 px-margin-mobile md:px-gutter lg:grid-cols-12"
+        class="px-margin-mobile md:px-gutter pointer-events-none relative z-10 mx-auto grid w-full max-w-[1200px] grid-cols-1 items-center gap-8 lg:grid-cols-12"
       >
         <div class="flex flex-col items-start lg:col-span-8">
-          <p class="mb-4 font-mono-technical text-mono-technical uppercase tracking-widest text-muted-teal">
+          <p
+            class="font-mono-technical text-mono-technical text-muted-teal mb-4 tracking-widest uppercase"
+          >
             Precision Engineering
           </p>
           <h1
-            class="mb-6 max-w-4xl font-headline-xl text-headline-xl font-semibold text-on-surface md:text-[64px] md:leading-[1.1] md:tracking-[-0.03em]"
+            class="font-headline-xl text-headline-xl text-on-surface mb-6 max-w-4xl font-semibold md:text-[64px] md:leading-[1.1] md:tracking-[-0.03em]"
           >
             East End Systems
           </h1>
-          <p class="mb-10 max-w-2xl font-body-md text-body-md leading-relaxed text-on-surface-variant md:text-xl">
+          <p
+            class="font-body-md text-body-md text-on-surface-variant mb-10 max-w-2xl leading-relaxed md:text-xl"
+          >
             Software engineering consultancy specializing in enterprise architecture, developer
             tooling, and AI-integrated systems.
           </p>
           <div class="pointer-events-auto flex flex-col gap-4 sm:flex-row">
             <a
-              class="inline-block border border-muted-teal px-8 py-4 text-center font-label-caps text-label-caps uppercase text-on-surface transition-all duration-150 hover:bg-muted-teal hover:text-white"
+              class="border-muted-teal font-label-caps text-label-caps text-on-surface hover:bg-muted-teal inline-block border px-8 py-4 text-center uppercase transition-all duration-150 hover:text-white"
               href="#contact"
               >Get in Touch</a
             >
             <a
-              class="inline-block border border-slate-gray px-8 py-4 text-center font-label-caps text-label-caps uppercase text-on-surface-variant transition-all duration-150 hover:border-on-surface hover:text-on-surface"
+              class="border-slate-gray font-label-caps text-label-caps text-on-surface-variant hover:border-on-surface hover:text-on-surface inline-block border px-8 py-4 text-center uppercase transition-all duration-150"
               href="#services"
               >View Methodology</a
             >
@@ -183,11 +189,13 @@ const projects = [
     </section>
 
     <!-- Services -->
-    <section id="services" class="relative border-b border-slate-gray bg-surface-dim py-stack-lg">
-      <div class="mx-auto w-full max-w-[1200px] px-margin-mobile md:px-gutter">
+    <section id="services" class="border-slate-gray bg-surface-dim py-stack-lg relative border-b">
+      <div class="px-margin-mobile md:px-gutter mx-auto w-full max-w-[1200px]">
         <div class="mb-16 flex flex-col items-start justify-between gap-8 md:flex-row">
           <div>
-            <h2 class="mb-2 font-headline-lg text-headline-lg-mobile text-on-surface md:text-headline-lg">
+            <h2
+              class="font-headline-lg text-headline-lg-mobile text-on-surface md:text-headline-lg mb-2"
+            >
               Core Competencies
             </h2>
             <p class="font-mono-technical text-mono-technical text-on-surface-variant">
@@ -199,17 +207,17 @@ const projects = [
           <div
             v-for="service in services"
             :key="service.title"
-            class="group relative flex h-full flex-col border border-slate-gray bg-[#151515] p-8 transition-colors duration-150 hover:border-muted-teal"
+            class="group border-slate-gray hover:border-muted-teal relative flex h-full flex-col border bg-[#151515] p-8 transition-colors duration-150"
           >
             <span
-              class="material-symbols-outlined mb-6 text-3xl text-muted-teal"
+              class="material-symbols-outlined text-muted-teal mb-6 text-3xl"
               style="font-variation-settings: 'FILL' 0"
               >{{ service.icon }}</span
             >
-            <h3 class="mb-4 font-headline-lg text-xl font-medium text-on-surface md:text-2xl">
+            <h3 class="font-headline-lg text-on-surface mb-4 text-xl font-medium md:text-2xl">
               {{ service.title }}
             </h3>
-            <p class="font-body-md text-body-md leading-relaxed text-on-surface-variant">
+            <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
               {{ service.body }}
             </p>
           </div>
@@ -218,10 +226,12 @@ const projects = [
     </section>
 
     <!-- Projects -->
-    <section id="projects" class="relative border-b border-slate-gray bg-background py-stack-lg">
-      <div class="mx-auto w-full max-w-[1200px] px-margin-mobile md:px-gutter">
+    <section id="projects" class="border-slate-gray bg-background py-stack-lg relative border-b">
+      <div class="px-margin-mobile md:px-gutter mx-auto w-full max-w-[1200px]">
         <div class="mb-16">
-          <h2 class="mb-2 font-headline-lg text-headline-lg-mobile text-on-surface md:text-headline-lg">
+          <h2
+            class="font-headline-lg text-headline-lg-mobile text-on-surface md:text-headline-lg mb-2"
+          >
             Selected Work
           </h2>
           <p class="font-mono-technical text-mono-technical text-on-surface-variant">
@@ -236,41 +246,41 @@ const projects = [
             :href="project.href || undefined"
             :target="project.href ? '_blank' : undefined"
             :rel="project.href ? 'noopener' : undefined"
-            :aria-label="project.href ? `Open ${project.title} on GitHub` : undefined"
-            class="group relative flex h-full flex-col border border-slate-gray bg-[#151515] p-8 transition-colors duration-150 hover:border-muted-teal"
+            :aria-label="project.href ? `Open ${project.title} website` : undefined"
+            class="group border-slate-gray hover:border-muted-teal relative flex h-full flex-col border bg-[#151515] p-8 transition-colors duration-150"
           >
             <div class="mb-6 flex items-start justify-between">
               <span
-                class="border border-muted-teal/30 bg-muted-teal/5 px-2 py-1 font-label-caps text-label-caps uppercase tracking-widest text-muted-teal"
+                class="border-muted-teal/30 bg-muted-teal/5 font-label-caps text-label-caps text-muted-teal border px-2 py-1 tracking-widest uppercase"
                 >{{ project.category }}</span
               >
               <span
                 v-if="project.href"
-                class="text-on-surface-variant transition-colors group-hover:text-primary"
+                class="text-on-surface-variant group-hover:text-primary transition-colors"
               >
                 <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0"
                   >arrow_outward</span
                 >
               </span>
             </div>
-            <h3 class="mb-3 font-headline-lg text-2xl font-medium text-on-surface">
+            <h3 class="font-headline-lg text-on-surface mb-3 text-2xl font-medium">
               {{ project.title }}
             </h3>
-            <p class="mb-6 flex-grow font-body-md text-body-md text-on-surface-variant">
+            <p class="font-body-md text-body-md text-on-surface-variant mb-6 flex-grow">
               {{ project.body }}
             </p>
             <div class="mt-auto flex flex-wrap gap-2">
               <span
                 v-for="tag in project.tags"
                 :key="tag"
-                class="border border-slate-gray bg-black/50 px-2 py-1 font-mono-technical text-xs text-slate-400"
+                class="border-slate-gray font-mono-technical border bg-black/50 px-2 py-1 text-xs text-slate-400"
                 >{{ tag }}</span
               >
             </div>
             <a
               v-if="!project.href"
               href="#contact"
-              class="mt-6 inline-block self-start border border-muted-teal px-6 py-3 font-label-caps text-label-caps uppercase text-on-surface transition-all duration-150 hover:bg-muted-teal hover:text-white"
+              class="border-muted-teal font-label-caps text-label-caps text-on-surface hover:bg-muted-teal mt-6 inline-block self-start border px-6 py-3 uppercase transition-all duration-150 hover:text-white"
             >
               Request Details →
             </a>
@@ -280,18 +290,25 @@ const projects = [
     </section>
 
     <!-- Contact -->
-    <section id="contact" class="relative overflow-hidden border-b border-slate-gray bg-surface-dim py-stack-lg">
-      <div class="pointer-events-none absolute bottom-0 right-0 opacity-5">
-        <span class="material-symbols-outlined text-[300px]" style="font-variation-settings: 'FILL' 0"
+    <section
+      id="contact"
+      class="border-slate-gray bg-surface-dim py-stack-lg relative overflow-hidden border-b"
+    >
+      <div class="pointer-events-none absolute right-0 bottom-0 opacity-5">
+        <span
+          class="material-symbols-outlined text-[300px]"
+          style="font-variation-settings: 'FILL' 0"
           >my_location</span
         >
       </div>
-      <div class="relative z-10 mx-auto w-full max-w-[1200px] px-margin-mobile md:px-gutter">
+      <div class="px-margin-mobile md:px-gutter relative z-10 mx-auto w-full max-w-[1200px]">
         <div class="max-w-2xl">
-          <h2 class="mb-4 font-headline-lg text-headline-lg-mobile text-on-surface md:text-headline-lg">
+          <h2
+            class="font-headline-lg text-headline-lg-mobile text-on-surface md:text-headline-lg mb-4"
+          >
             Initiate Dialogue
           </h2>
-          <p class="mb-10 font-body-md text-body-md text-on-surface-variant">
+          <p class="font-body-md text-body-md text-on-surface-variant mb-10">
             Available for select technical advisory and architectural engagements. Located in Sag
             Harbor, New York. Remote-friendly globally.
           </p>
@@ -315,7 +332,9 @@ const projects = [
             />
             <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div>
-                <label class="mb-2 block font-label-caps text-label-caps text-on-surface-variant" for="name"
+                <label
+                  class="font-label-caps text-label-caps text-on-surface-variant mb-2 block"
+                  for="name"
                   >Name</label
                 >
                 <input
@@ -324,11 +343,13 @@ const projects = [
                   type="text"
                   required
                   placeholder="Enter name"
-                  class="w-full border-0 border-b border-slate-gray bg-transparent px-0 py-2 font-mono-technical text-on-surface transition-colors placeholder:text-slate-600 focus:border-muted-teal focus:ring-0"
+                  class="border-slate-gray font-mono-technical text-on-surface focus:border-muted-teal w-full border-0 border-b bg-transparent px-0 py-2 transition-colors placeholder:text-slate-600 focus:ring-0"
                 />
               </div>
               <div>
-                <label class="mb-2 block font-label-caps text-label-caps text-on-surface-variant" for="email"
+                <label
+                  class="font-label-caps text-label-caps text-on-surface-variant mb-2 block"
+                  for="email"
                   >Email</label
                 >
                 <input
@@ -337,12 +358,14 @@ const projects = [
                   type="email"
                   required
                   placeholder="address@domain.com"
-                  class="w-full border-0 border-b border-slate-gray bg-transparent px-0 py-2 font-mono-technical text-on-surface transition-colors placeholder:text-slate-600 focus:border-muted-teal focus:ring-0"
+                  class="border-slate-gray font-mono-technical text-on-surface focus:border-muted-teal w-full border-0 border-b bg-transparent px-0 py-2 transition-colors placeholder:text-slate-600 focus:ring-0"
                 />
               </div>
             </div>
             <div>
-              <label class="mb-2 block font-label-caps text-label-caps text-on-surface-variant" for="message"
+              <label
+                class="font-label-caps text-label-caps text-on-surface-variant mb-2 block"
+                for="message"
                 >Inquiry</label
               >
               <textarea
@@ -351,20 +374,17 @@ const projects = [
                 rows="4"
                 required
                 placeholder="Describe the engagement..."
-                class="w-full resize-none border-0 border-b border-slate-gray bg-transparent px-0 py-2 font-mono-technical text-on-surface transition-colors placeholder:text-slate-600 focus:border-muted-teal focus:ring-0"
+                class="border-slate-gray font-mono-technical text-on-surface focus:border-muted-teal w-full resize-none border-0 border-b bg-transparent px-0 py-2 transition-colors placeholder:text-slate-600 focus:ring-0"
               ></textarea>
             </div>
-            <p
-              v-if="status === 'error'"
-              class="font-mono-technical text-mono-technical text-error"
-            >
+            <p v-if="status === 'error'" class="font-mono-technical text-mono-technical text-error">
               {{ errorMsg }}
             </p>
             <div class="pt-4">
               <button
                 type="submit"
                 :disabled="status === 'submitting'"
-                class="w-full border border-muted-teal px-8 py-4 font-label-caps text-label-caps uppercase text-on-surface transition-all duration-150 hover:bg-muted-teal hover:text-white disabled:cursor-not-allowed disabled:opacity-50 md:w-auto"
+                class="border-muted-teal font-label-caps text-label-caps text-on-surface hover:bg-muted-teal w-full border px-8 py-4 uppercase transition-all duration-150 hover:text-white disabled:cursor-not-allowed disabled:opacity-50 md:w-auto"
               >
                 {{ status === 'submitting' ? 'Sending…' : 'Send Transmission' }}
               </button>
@@ -374,21 +394,21 @@ const projects = [
           <!-- Our own thank-you state — replaces Formspree's hosted redirect. -->
           <div
             v-else-if="usesFormspree && status === 'success'"
-            class="border border-muted-teal bg-muted-teal/5 p-8"
+            class="border-muted-teal bg-muted-teal/5 border p-8"
           >
             <p
-              class="mb-3 font-mono-technical text-mono-technical uppercase tracking-widest text-muted-teal"
+              class="font-mono-technical text-mono-technical text-muted-teal mb-3 tracking-widest uppercase"
             >
               Transmission received
             </p>
-            <h3 class="mb-4 font-headline-lg text-2xl font-medium text-on-surface">Thank you.</h3>
-            <p class="mb-6 font-body-md text-body-md text-on-surface-variant">
+            <h3 class="font-headline-lg text-on-surface mb-4 text-2xl font-medium">Thank you.</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant mb-6">
               Your inquiry reached East End Systems. We’ll respond from
               <span class="text-on-surface">info@eastendsystems.com</span> shortly.
             </p>
             <button
               type="button"
-              class="font-label-caps text-label-caps uppercase text-muted-teal transition-colors hover:text-on-surface"
+              class="font-label-caps text-label-caps text-muted-teal hover:text-on-surface uppercase transition-colors"
               @click="status = 'idle'"
             >
               Send another →
@@ -399,7 +419,7 @@ const projects = [
           <div v-else class="pt-2">
             <a
               href="mailto:info@eastendsystems.com"
-              class="inline-block border border-muted-teal px-8 py-4 font-label-caps text-label-caps uppercase text-on-surface transition-all duration-150 hover:bg-muted-teal hover:text-white"
+              class="border-muted-teal font-label-caps text-label-caps text-on-surface hover:bg-muted-teal inline-block border px-8 py-4 uppercase transition-all duration-150 hover:text-white"
             >
               info@eastendsystems.com
             </a>
@@ -411,15 +431,15 @@ const projects = [
 
   <!-- Footer -->
   <footer
-    class="mx-auto flex w-full flex-col items-center justify-between gap-4 border-t border-slate-gray bg-surface-container px-margin-mobile py-stack-sm md:flex-row md:px-gutter"
+    class="border-slate-gray bg-surface-container px-margin-mobile py-stack-sm md:px-gutter mx-auto flex w-full flex-col items-center justify-between gap-4 border-t md:flex-row"
   >
     <div class="font-label-caps text-label-caps text-on-surface">East End Systems</div>
-    <div class="text-center font-body-sm text-body-sm text-on-surface-variant">
+    <div class="font-body-sm text-body-sm text-on-surface-variant text-center">
       © 2026 East End Systems. Precision Engineering for Sag Harbor and Beyond.
     </div>
-    <div class="flex gap-6 font-body-sm text-body-sm">
+    <div class="font-body-sm text-body-sm flex gap-6">
       <a
-        class="text-on-surface-variant transition-colors duration-150 hover:text-muted-teal"
+        class="text-on-surface-variant hover:text-muted-teal transition-colors duration-150"
         href="https://github.com/notTag"
         target="_blank"
         rel="noopener"
