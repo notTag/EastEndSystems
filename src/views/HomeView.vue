@@ -2,8 +2,58 @@
 // East End Systems — single-page marketing site.
 // Design ported from the Stitch "East End Technical" design system.
 
-import { ref } from 'vue'
-import { AsciiOverlay } from 'vue-ascii-overlay'
+import { defineAsyncComponent, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
+import VantaBackground from '@/components/VantaBackground.vue'
+
+const NetControls = import.meta.env.DEV
+  ? defineAsyncComponent(() => import('@/components/NetControls.vue'))
+  : null
+const CellsControls = import.meta.env.DEV
+  ? defineAsyncComponent(() => import('@/components/CellsControls.vue'))
+  : null
+const cellsOptions = reactive({ color1: '#101414', color2: '#baf0f7', size: 2.4, speed: 1 })
+const showCellsControls = ref(false)
+const showNetControls = ref(false)
+
+function syncBackgroundControls() {
+  try {
+    localStorage.removeItem('RingBGCtrlList')
+    const savedCells = localStorage.getItem('CellsBGCtrlList')
+    if (!import.meta.env.DEV) {
+      localStorage.setItem('CellsBGCtrlList', 'false')
+      showCellsControls.value = false
+    } else {
+      if (savedCells === null) localStorage.setItem('CellsBGCtrlList', 'true')
+      showCellsControls.value = savedCells === null || savedCells === 'true'
+    }
+    const saved = localStorage.getItem('NetBGCtrlList')
+    if (saved === null) localStorage.setItem('NetBGCtrlList', 'false')
+    showNetControls.value = saved === 'true'
+  } catch {
+    showNetControls.value = false
+    showCellsControls.value = false
+  }
+}
+
+onMounted(() => {
+  syncBackgroundControls()
+  if (!import.meta.env.DEV) return
+  window.addEventListener('storage', syncBackgroundControls)
+  window.addEventListener('focus', syncBackgroundControls)
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('storage', syncBackgroundControls)
+  window.removeEventListener('focus', syncBackgroundControls)
+})
+
+const netOptions = reactive({
+  color: '#4a7075',
+  backgroundColor: '#101414',
+  points: 11,
+  maxDistance: 25,
+  spacing: 16,
+  showDots: true,
+})
 
 // Formspree form ID (see README → Contact form). Set back to 'your-form-id' to
 // fall back to a plain mailto link instead of the live form.
@@ -75,13 +125,13 @@ const projects = [
     title: 'SpaceTag',
     body: 'macOS productivity suite. Swift menu bar app + open-source CLI. Surfaces LLM completion notifications (Claude Code, Codex) via color-coded per-space indicators.',
     tags: ['Swift', 'macOS', 'CLI'],
-    href: 'https://github.com/notTag/Space-Tag-CLI',
+    href: 'https://spacetag.co',
   },
   {
     category: 'Framework',
     title: 'Golden Lock',
     body: 'Immutable testing framework preventing AI agents from gaming test suites during automated development workflows. Enforces structural integrity.',
-    tags: ['Testing', 'DevTools'],
+    tags: ['Agent Tooling', 'Testing', 'DevTools'],
     href: 'https://www.goldenlock.dev/',
   },
   {
@@ -145,13 +195,8 @@ const projects = [
     <section
       class="border-slate-gray relative flex min-h-[90vh] items-center justify-center overflow-hidden border-b"
     >
-      <div class="technical-grid absolute inset-0 opacity-20"></div>
-      <div class="wave-pattern absolute inset-0 opacity-50"></div>
-      <!-- Interactive ASCII fluid overlay (vue-ascii-overlay). Fills the hero;
-           content sits above it via z-10. -->
-      <div class="absolute inset-0 z-0">
-        <AsciiOverlay color="#4a7075" />
-      </div>
+      <VantaBackground effect="net" :options="netOptions" />
+      <NetControls v-if="NetControls && showNetControls" v-model="netOptions" />
       <div
         class="px-margin-mobile md:px-gutter pointer-events-none relative z-10 mx-auto grid w-full max-w-[1200px] grid-cols-1 items-center gap-8 lg:grid-cols-12"
       >
@@ -159,7 +204,7 @@ const projects = [
           <p
             class="font-mono-technical text-mono-technical text-muted-teal mb-4 tracking-widest uppercase"
           >
-            Precision Engineering
+            Systems Engineering
           </p>
           <h1
             class="font-headline-xl text-headline-xl text-on-surface mb-6 max-w-4xl font-semibold md:text-[64px] md:leading-[1.1] md:tracking-[-0.03em]"
@@ -169,8 +214,8 @@ const projects = [
           <p
             class="font-body-md text-body-md text-on-surface-variant mb-10 max-w-2xl leading-relaxed md:text-xl"
           >
-            Software engineering consultancy specializing in enterprise architecture, developer
-            tooling, and AI-integrated systems.
+            Software engineering consultancy specializing in enterprise architecture, AI-integrated
+            systems and agentic tooling.
           </p>
           <div class="pointer-events-auto flex flex-col gap-4 sm:flex-row">
             <a
@@ -226,8 +271,8 @@ const projects = [
     </section>
 
     <!-- Projects -->
-    <section id="projects" class="border-slate-gray bg-background py-stack-lg relative border-b">
-      <div class="px-margin-mobile md:px-gutter mx-auto w-full max-w-[1200px]">
+    <section id="projects" class="bg-background py-stack-lg relative">
+      <div class="px-margin-mobile md:px-gutter relative z-10 mx-auto w-full max-w-[1200px]">
         <div class="mb-16">
           <h2
             class="font-headline-lg text-headline-lg-mobile text-on-surface md:text-headline-lg mb-2"
@@ -290,17 +335,15 @@ const projects = [
     </section>
 
     <!-- Contact -->
-    <section
-      id="contact"
-      class="border-slate-gray bg-surface-dim py-stack-lg relative overflow-hidden border-b"
-    >
-      <div class="pointer-events-none absolute right-0 bottom-0 opacity-5">
-        <span
-          class="material-symbols-outlined text-[300px]"
-          style="font-variation-settings: 'FILL' 0"
-          >my_location</span
-        >
+    <section id="contact" class="border-slate-gray bg-surface-dim py-stack-lg relative border-b">
+      <div
+        class="contact-animation pointer-events-none absolute inset-x-0 bottom-0 z-0"
+        aria-hidden="true"
+      >
+        <VantaBackground effect="cells" :options="cellsOptions" />
+        <div class="bg-background/75 absolute inset-0"></div>
       </div>
+      <CellsControls v-if="CellsControls && showCellsControls" v-model="cellsOptions" />
       <div class="px-margin-mobile md:px-gutter relative z-10 mx-auto w-full max-w-[1200px]">
         <div class="max-w-2xl">
           <h2
@@ -343,7 +386,7 @@ const projects = [
                   type="text"
                   required
                   placeholder="Enter name"
-                  class="border-slate-gray font-mono-technical text-on-surface focus:border-muted-teal w-full border-0 border-b bg-transparent px-0 py-2 transition-colors placeholder:text-slate-600 focus:ring-0"
+                  class="border-slate-gray font-mono-technical text-on-surface focus:border-muted-teal w-full border-0 border-b bg-transparent px-0 py-2 transition-colors placeholder:text-slate-600 focus:ring-0 focus:outline-none"
                 />
               </div>
               <div>
@@ -358,7 +401,7 @@ const projects = [
                   type="email"
                   required
                   placeholder="address@domain.com"
-                  class="border-slate-gray font-mono-technical text-on-surface focus:border-muted-teal w-full border-0 border-b bg-transparent px-0 py-2 transition-colors placeholder:text-slate-600 focus:ring-0"
+                  class="border-slate-gray font-mono-technical text-on-surface focus:border-muted-teal w-full border-0 border-b bg-transparent px-0 py-2 transition-colors placeholder:text-slate-600 focus:ring-0 focus:outline-none"
                 />
               </div>
             </div>
@@ -374,7 +417,7 @@ const projects = [
                 rows="4"
                 required
                 placeholder="Describe the engagement..."
-                class="border-slate-gray font-mono-technical text-on-surface focus:border-muted-teal w-full resize-none border-0 border-b bg-transparent px-0 py-2 transition-colors placeholder:text-slate-600 focus:ring-0"
+                class="border-slate-gray font-mono-technical text-on-surface focus:border-muted-teal w-full resize-none border-0 border-b bg-transparent px-0 py-2 transition-colors placeholder:text-slate-600 focus:ring-0 focus:outline-none"
               ></textarea>
             </div>
             <p v-if="status === 'error'" class="font-mono-technical text-mono-technical text-error">

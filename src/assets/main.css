@@ -136,23 +136,9 @@ body {
   color: #fff;
 }
 
-/* Hero "oscilloscope" wave texture — thin low-opacity horizontal lines. */
-.wave-pattern {
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent,
-    transparent 10px,
-    rgba(255, 255, 255, 0.03) 10px,
-    rgba(255, 255, 255, 0.03) 11px
-  );
-  mask-image: radial-gradient(circle at center, black, transparent);
-  -webkit-mask-image: radial-gradient(circle at center, black, transparent);
-}
-
-/* Technical blueprint grid. */
-.technical-grid {
-  background-size: 40px 40px;
-  background-image:
-    linear-gradient(to right, rgba(38, 38, 38, 0.5) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(38, 38, 38, 0.5) 1px, transparent 1px);
+/* Blend Cells in across the projects/contact boundary. */
+.contact-animation {
+  top: -32rem;
+  mask-image: linear-gradient(to bottom, transparent, black 40rem);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 40rem);
 }
