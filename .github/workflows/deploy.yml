@@ -1,8 +1,11 @@
-name: Deploy to GitHub Pages
+name: Deploy
+
+# main → eastendsystems.com (GitHub Pages)
+# dev  → dev.eastendsystems.com (Cloudflare Pages, branch alias `dev`)
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
   workflow_dispatch:
 
 permissions:
@@ -10,9 +13,9 @@ permissions:
   pages: write
   id-token: write
 
-# Allow one concurrent deployment, cancel in-progress runs for the same ref.
+# One deployment per branch at a time; a newer push cancels the older run.
 concurrency:
-  group: pages
+  group: deploy-${{ github.ref_name }}
   cancel-in-progress: true
 
 jobs:
@@ -38,15 +41,29 @@ jobs:
         run: bun run test
 
       - name: Build
-        # Custom domain (eastendsystems.com) serves from root.
+        # Both domains serve from root.
         run: VITE_BASE=/ bun run build
 
+      - name: Keep dev out of search engines
+        if: github.ref_name == 'dev'
+        run: |
+          printf '/*\n  X-Robots-Tag: noindex\n' > dist/_headers
+
       - name: Upload Pages artifact
+        if: github.ref_name == 'main'
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
-  deploy:
+      - name: Upload dev artifact
+        if: github.ref_name == 'dev'
+        uses: actions/upload-artifact@v4
+        with:
+          name: dev-dist
+          path: ./dist
+
+  deploy-prod:
+    if: github.ref_name == 'main'
     needs: build
     runs-on: ubuntu-latest
     environment:
@@ -56,3 +73,23 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  deploy-dev:
+    if: github.ref_name == 'dev'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+      url: https://dev.eastendsystems.com
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dev-dist
+          path: ./dist
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=eastendsystems --branch=dev

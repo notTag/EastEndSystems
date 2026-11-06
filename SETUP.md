@@ -55,6 +55,28 @@ the base back to `/`:
 enter `eastendsystems.com`, save, and tick **Enforce HTTPS** once the cert
 provisions (~15 min–24 h). Commit + push to redeploy.
 
+## 3b. Dev site — dev.eastendsystems.com (Cloudflare Pages)
+
+Push to the `dev` branch → CI runs the same gates → deploys to Cloudflare Pages
+project `eastendsystems`, branch alias `dev`. `main` still deploys prod to
+GitHub Pages. Dev responses carry `X-Robots-Tag: noindex`.
+
+One-time setup:
+
+1. **Create the Pages project** (Direct Upload, production branch `main`):
+   `bunx wrangler login && bunx wrangler pages project create eastendsystems --production-branch=main`
+2. **API token**: Cloudflare dashboard → My Profile → API Tokens → Create →
+   template "Edit Cloudflare Workers" or custom with `Account › Cloudflare Pages › Edit`.
+3. **Repo secrets**:
+   `gh secret set CLOUDFLARE_API_TOKEN` and `gh secret set CLOUDFLARE_ACCOUNT_ID`
+   (account ID: dashboard sidebar, or `bunx wrangler whoami`).
+4. **First deploy**: `git push origin main:dev` → creates `dev.eastendsystems.pages.dev`.
+5. **DNS** (Namecheap → Advanced DNS): `CNAME  dev  dev.eastendsystems.pages.dev.`
+6. **Attach domain**: Cloudflare → Workers & Pages → `eastendsystems` →
+   Custom domains → add `dev.eastendsystems.com`. Cert issues in minutes.
+
+Promote: merge `dev` → `main` (or PR feature → `dev`, then `dev` → `main`).
+
 ## 4. Contact form (Formspree)
 
 The form falls back to a `mailto:` button until you connect Formspree:
